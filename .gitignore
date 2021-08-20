@@ -1,0 +1,5 @@
+node_modules
+deployedaddress.txt
+package-lock.json
+.env
+.next
