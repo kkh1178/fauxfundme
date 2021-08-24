@@ -1,11 +1,10 @@
 import Web3 from "web3";
-require('dotenv').config()
 
 // This files runs twice, on the server initially and then again on the browser
 let web3;
 
-
-const network = process.env.NETWORK;
+// importing network from .env file
+const network = "HTTP://127.0.0.1:7545";
 
 // We can use out code if the user has metamask or not
 // window !== undefined means the user is using a browser and if window.ethereum isn't "undefined"

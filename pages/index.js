@@ -3,14 +3,14 @@ import creation from '../ethereum/creation';
 import { Card, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import Layout from '../components/Layout';
-// import { Link } from "../routes";
+import { Link } from "../routes";
 
 class FundraiserIndex extends Component {
     // static defines a class function; requirement placed on us by next so it doesn't 
     // have to render the component
     static async getInitialProps() {
         const fundraiserCreation = await creation.methods.getDeployedFundraiser().call();
-        console.log(fundraiserCreation)
+        // console.log(fundraiserCreation)
         return {fundraiserCreation: fundraiserCreation};
     }
 
@@ -21,12 +21,15 @@ class FundraiserIndex extends Component {
         const items = this.props.fundraiserCreation.map(address => {
             return {
                 header: address,
-                description: <a>View Fundraiser</a>,
+                description: (
+                    <Link route={`/fundraisers/${address}`}>
+                        <a>View Fundraiser</a>
+                    </Link>
+                ),
                 fluid: true
 
             };
         });
-        console.log(items)
         return <Card.Group items={items} />
     }
 
@@ -37,13 +40,14 @@ class FundraiserIndex extends Component {
                 <div>
                     <h3>Open Fundraisers:</h3>
                     {/* Adding the button first to have two columns, left with the open fundraisers and right with button */}
-
-                    <Button 
-                        floated ="right"
-                        content="Start a Fundraiser"
-                        icon="add circle"
-                        primary
-                    ></Button>
+                    <Link route="/fundraiser/new">
+                        <Button 
+                            floated ="right"
+                            content="Start a Fundraiser"
+                            icon="add circle"
+                            primary
+                        ></Button>
+                    </Link>
                     {this.renderFundraiserCreation()}
                 </div>
             </Layout>

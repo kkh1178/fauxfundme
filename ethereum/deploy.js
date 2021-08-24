@@ -6,6 +6,7 @@ require('dotenv').config()
 // Compilation is being done in a separate step and not on the fly;
 const compiledFundraiserCreation = require('./build/FundraiserCreation.json');
 
+// importing passphrase and nework in from the .env file
 const mnemonic = process.env.MNEMOMIC;
 const network = process.env.NETWORK;
 // Fake wallet

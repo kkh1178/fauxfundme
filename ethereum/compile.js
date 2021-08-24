@@ -1,8 +1,15 @@
 const path = require("path");
 const solc = require('solc');
-// file system module
+// // file system module
 const fs = require('fs-extra');
+// // Compile script for ganache
+// const fundraiserPath = path.resolve(__dirname, "contracts", "fauxfundme.sol");
+// const source = fs.readFileSync(fundraiserPath, 'utf8');
+// module.exports = solc.compile(source, 1).contracts[":FundraiserCreation", ":Fundraiser"]
 
+
+
+// compile script for rinkeby
 // 1. Delete the entire build folder
 // get the current working directory and look for the build directory
 const buildPath = path.resolve(__dirname, 'build');

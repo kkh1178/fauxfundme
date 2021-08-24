@@ -3,7 +3,7 @@ import { Form, Button, Input, Message } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import creation from '../../ethereum/creation';
 import web3 from '../../ethereum/web3';
-// import {Router} from '../../routes';
+import {Router} from '../../routes';
 
 
 class NewFundraiser extends Component {
@@ -11,6 +11,7 @@ class NewFundraiser extends Component {
     state = {
         fundraiserGoal: '',
         beneficiary: '',
+        fundraiserMission: '',
         errorMessage:"",
         loading: false,
     }
@@ -27,10 +28,13 @@ class NewFundraiser extends Component {
                 .send({
                     from: accounts[0],
                     gas: 1000000,
-                })
+                });
+            Router.pushRoute('/')
         } catch(err) {
             this.setState({errorMessage: err.message})
         }
+
+        this.setState({ loading: false });
 
     }
 
@@ -61,8 +65,11 @@ class NewFundraiser extends Component {
                         </Input>
                     </Form.Field>
                     <Form.Field>
-                        <label>Fundraiser Cause:</label>
-                        <input placeholder = "tell us your story..." />
+                        <label>Fundraiser Mission:</label>
+                        <Input 
+                            placeholder = "tell us your story..." 
+                            value={this.state.fundraiserMission}
+                            />
                     </Form.Field>
                     <Message error header="Oops!" content={this.state.errorMessage} />
                     <Button
