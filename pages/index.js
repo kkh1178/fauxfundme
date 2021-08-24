@@ -40,7 +40,7 @@ class FundraiserIndex extends Component {
                 <div>
                     <h3>Open Fundraisers:</h3>
                     {/* Adding the button first to have two columns, left with the open fundraisers and right with button */}
-                    <Link route="/fundraiser/new">
+                    <Link route="/fundraisers/new">
                         <Button 
                             floated ="right"
                             content="Start a Fundraiser"

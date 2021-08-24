@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Card, Grid, Button, GridRow } from 'semantic-ui-react';
 import ContributionForm from '../../components/ContributionForm';
 import Layout from '../../components/Layout';
-import fundraiser from '../../ethereum/fundraiser';
 import Fundraiser from "../../ethereum/fundraiser";
 import web3 from '../../ethereum/web3';
 import {Link} from '../../routes';
@@ -87,19 +86,6 @@ class ShowFundraiser extends Component {
                             <ContributionForm address={this.props.address}></ContributionForm>
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row>
-                        {/* Wrapping the link inside of a column to keep both rows centered on top of one another */}
-                        <Grid.Column>
-                            <Link route={`/fundraisers/${this.props.address}/requests`}>
-                                <a>
-                                    <Button primary>
-                                        View Requests
-                                    </Button>
-                                </a>
-                            </Link>
-                        </Grid.Column>
-                    </Grid.Row>
-                    
                 </Grid>
             </Layout>
         )

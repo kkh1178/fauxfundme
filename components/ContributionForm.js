@@ -6,7 +6,7 @@ import {Router} from '../routes';
 
 class ContributionForm extends Component {
     // setting up state
-    state= {
+    state = {
         value: "",
         errorMessage: "",
         loading: false,
