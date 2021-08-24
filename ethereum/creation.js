@@ -8,7 +8,7 @@ import FundraiserCreation from "./build/FundraiserCreation.json";
 
 const instance = new web3.eth.Contract(
   JSON.parse(FundraiserCreation.interface),
-    "0x12a587e271F3e12336854e13f347d269590a9ba0"
+    "0x0258b03Ff7f9154A5C07C59eb58Fe94963411584"
     );
 
 export default instance;

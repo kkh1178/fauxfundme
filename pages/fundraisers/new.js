@@ -4,7 +4,6 @@ import Layout from '../../components/Layout';
 import creation from '../../ethereum/creation';
 import web3 from '../../ethereum/web3';
 import {Router} from '../../routes';
-import ShowFundraiser from './show';
 
 
 class NewFundraiser extends Component {
@@ -25,7 +24,7 @@ class NewFundraiser extends Component {
         try {
             const accounts = await web3.eth.getAccounts();
             await creation.methods
-                .createFundraiser(this.state.beneficiary, this.state.fundraiserGoal)
+                .createFundraiser(this.state.beneficiary, this.state.fundraiserGoal, this.state.fundraiserMission)
                 .send({
                     from: accounts[0],
                     gas: 1000000,
@@ -71,7 +70,7 @@ class NewFundraiser extends Component {
                             placeholder = "tell us your story..." 
                             value={this.state.fundraiserMission}
                             onChange={(event) => this.setState({fundraiserMission: event.target.value})}
-                            // onClick ={()=>ShowFundraiser(this.state.fundraiserMission)}
+                            
                             />
                     </Form.Field>
                     <Message error header="Oops!" content={this.state.errorMessage} />

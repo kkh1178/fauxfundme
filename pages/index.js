@@ -27,7 +27,6 @@ class FundraiserIndex extends Component {
                     </Link>
                 ),
                 fluid: true
-
             };
         });
         return <Card.Group items={items} />

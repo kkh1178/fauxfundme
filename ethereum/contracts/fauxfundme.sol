@@ -1,12 +1,12 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.21;
 
 // // Contract over donation campaigns being deployed, but withtout having to pay for instance
 contract FundraiserCreation {
     address[] public deployedFundraiser;
     
     // Create a new gofundme campaign
-    function createFundraiser(address beneficiary, uint moneyGoal) public {
-        address newFundraiser = new Fundraiser(msg.sender, beneficiary, moneyGoal);
+    function createFundraiser(address beneficiary, uint moneyGoal, string mission) public {
+        address newFundraiser = new Fundraiser(msg.sender, beneficiary, moneyGoal, mission);
         deployedFundraiser.push(newFundraiser);
     }
     
@@ -22,10 +22,14 @@ contract Fundraiser {
     // Event for storing the address of contributors plus the amount they contributed 
     // (https://docs.soliditylang.org/en/v0.4.21/contracts.html#events)
     // (originally had a struct but it was costing too much in gas)
-    event Donor(
-        address indexed _from,
-        uint _value
-    );
+    // event Donor(
+    //     address indexed _from,
+    //     uint _value
+    // );
+
+    // event FundraiserMeta(
+    //     uint mission
+    // );
     
     /* 
     Lets start with declaring all of the instance variables (with types)
@@ -46,6 +50,9 @@ contract Fundraiser {
     
     // monetary goal of the campaign
     uint public goal;
+
+    // NOTE this shouldn't be stored on the chain; change to IPFS
+    string mission;
     
     // modifier to restrict who can withdraw money
     modifier restricted() {
@@ -54,11 +61,14 @@ contract Fundraiser {
     }
    
     // constructor to create a gofundme donations campaign
-    function Fundraiser (address creator, address recipient, uint moneyGoal) public {
+    function Fundraiser (address creator, address recipient, uint moneyGoal, string purpose) public {
         manager = creator;
         beneficiary = recipient;
         goal = moneyGoal;
-    }
+        mission = purpose;
+        // emit FundraiserMeta(creator, recipient, moneyGoal, mission);
+        // emit FundraiserMeta(1);
+    }   
     
     // Function to contribute to a campaign
     function contribute() public payable{
@@ -67,9 +77,9 @@ contract Fundraiser {
         
         total = msg.value + total;
 
-        // Emitting donor (for some reason, emit isn't recognized by my compiler so I omitted it)
+        // Emitting an event for donor (for some reason, emit isn't recognized by my compiler so I omitted it)
         // emit Donor(msg.sender, msg.value);
-        Donor(msg.sender, msg.value);
+        // emit Donor(msg.sender, msg.value);
     }
     
     // function to transfer funds to the beneficiary of the campaign
@@ -80,11 +90,12 @@ contract Fundraiser {
     
     // Get a summary of the campaign numbers.
     function getSummary() public view returns(
-        uint, uint, uint) {
+        uint, uint, uint, string) {
             return (
                 total,
                 numberOfDonors,
-                goal
+                goal,
+                mission
                 );
         }
 }

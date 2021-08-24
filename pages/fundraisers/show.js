@@ -8,38 +8,46 @@ import {Link} from '../../routes';
 
 
 class ShowFundraiser extends Component {
-
+    state = {
+        missionStatement: ''
+    }
     /* 
     get a handle on the fundraiser we are trying to look at; getInitialProps will get some data in an object,
     and display it; WE ARE GETTING THE PROPS FROM THE ROUTES THAT WE SET UP. 
     */
     static async getInitialProps(props) {
-            /* address of the fundraiser we are trying to show to our user; comes from 
-            a query prop on our URL or routes.js file. it is predefined;
-            importing fundraiser from fundraiser.js which will access our contract instance
+        // console.log(props)
+        /* address of the fundraiser we are trying to show to our user; comes from 
+        a query prop on our URL or routes.js file. it is predefined;
+        importing fundraiser from fundraiser.js which will access our contract instance
+        */
+        
+        
+        const fundraiser = Fundraiser(props.query.address);
+        // const test = await fundraiser.once('FundraiserMeta', {fromBlock: 0}, function(error, event){console.log(event)});
+        // // const test = fundraiser.once('FundraiserMetadata', {fromBlock: 0}, function(error, event){setState({missionStatement: event.mission})});
+        const summary = await fundraiser.methods.getSummary().call();
+        
+        // returning the information out of the contract
+        return {
+            /* 
+            returning the address in our object because getInitialProps is not a part of our actual 
+            component instance, so while getInitialProps "knows" about our campaign address,
+            the rest of the methods inside of it which ARE a part of the actual component instance 
+            don't know about itso we have to pass it along.
             */
-            const fundraiser = Fundraiser(props.query.address)
-            const summary = await fundraiser.methods.getSummary().call();
-
-            // returning the information out of the contract
-            return {
-                /* 
-                returning the address in our object because getInitialProps is not a part of our actual 
-                component instance, so while getInitialProps "knows" about our campaign address,
-                the rest of the methods inside of it which ARE a part of the actual component instance 
-                don't know about itso we have to pass it along.
-                */
-                address: props.query.address,
-                totalAmount: summary[0],
-                numberOfDonors: summary[1],
-                fundraiserGoal: summary[2],
+            address: props.query.address,
+            totalAmount: summary[0],
+            numberOfDonors: summary[1],
+            fundraiserGoal: summary[2],
+            fundraiserMission: summary[3],
             }
     }
 
     // Create a card group helper method
     renderCards() {
         const {
-            address, totalAmount, numberOfDonors, fundraiserGoal
+            address, totalAmount, numberOfDonors, fundraiserGoal, fundraiserMission
         } = this.props;
 
         const items = [
@@ -65,6 +73,12 @@ class ShowFundraiser extends Component {
             header: "Total Amount Raised",
             meta: totalAmount,
             description: "Funds contributed so far.",
+            style:{overflowWrap: "break-word"}
+        },
+        {
+            header: "Fundraiser Mission",
+            meta: fundraiserMission,
+            description: "Mission",
             style:{overflowWrap: "break-word"}
         }
             
