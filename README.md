@@ -15,10 +15,10 @@ Features:
 ![image of homescreen](./pictures/openfundraisers.png
 )
 
-2. Start your own fundraiser
+2. Start your own
 
 ![creating your own fundraiser](./pictures/informationpageWithcontribrution.png
 )
 
-3. Contribute to a fundraiser
+3. Contribute!
 ![creating your own fundraiser](./pictures/contribute.png)
