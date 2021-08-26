@@ -17,7 +17,7 @@ Features:
 
 2. Start your own
 
-![creating your own fundraiser](./pictures/informationpageWithcontribrution.png
+![creating your own fundraiser](./pictures/startafundraiser.png
 )
 
 3. Contribute!
