@@ -22,3 +22,7 @@ Features:
 
 3. Contribute!
 ![creating your own fundraiser](./pictures/contribute.png)
+
+
+
+4. Next Steps: Implement IPFS
