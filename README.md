@@ -22,4 +22,3 @@ Features:
 
 3. Contribute to a fundraiser
 ![creating your own fundraiser](./pictures/contribute.png)
-)
